@@ -1,0 +1,15 @@
+<plugin id="cordova-plugin-jumper"
+        xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>Jumper</name>
+    <description>Jump other App</description>
+    <js-module name="Jumper" src="www/Jumper.js">
+        <clobbers target="cordova.plugins.Jumper"/>
+    </js-module>
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <param name="android-package" value="org.apache.cordova.jumper"/>
+        </config-file>
+        <source-file src="src/android/Jumper.java" target-dir="src/org/apache/cordova/jumper"/>
+    </platform>
+</plugin>

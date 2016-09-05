@@ -3,6 +3,7 @@
  */
 var exec = require('cordova/exec');
 
-exports.AppGo = function (appName) {
-    exec(success,error,"Jumper","AppGo", []);
+exports.AppGo = function (appName,success,error) {
+    console.info(exec);
+    exec(success,error,"Jumper","appGo", [appName]);
 }

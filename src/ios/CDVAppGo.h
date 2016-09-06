@@ -11,7 +11,9 @@
 
 @interface CDVAppGo : CDVPlugin
 
+@property (nonatomic, strong) NSDictionary *appInfo;
 
 - (void)appGo:(CDVInvokedUrlCommand*)command;
+- (void)checkAppInstalled:(CDVInvokedUrlCommand*)command;
 
 @end

@@ -20,10 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
@@ -146,8 +143,13 @@ public class Jumper extends CordovaPlugin {
                 Log.d("JumperPlugins", "下载目标路径" + Environment.getExternalStorageDirectory());
                 File file = null;
                 FileOutputStream fos = null;
-                file = new File(Environment.getExternalStorageDirectory(), "updata.apk");
-                fos = new FileOutputStream(file);
+                try{
+                    file = new File(Environment.getExternalStorageDirectory(), "updata.apk");
+                    fos = new FileOutputStream(file);
+                }catch (FileNotFoundException e){
+                    file = new File(Environment.getDownloadCacheDirectory(), "updata.apk");
+                    fos = new FileOutputStream(file);
+                }
                 BufferedInputStream bis = new BufferedInputStream(is);
                 byte[] buffer = new byte[1024];
                 int len;

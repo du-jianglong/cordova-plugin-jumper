@@ -1,5 +1,6 @@
 # cordova-plugin-jumper
 ### ionic APP之间的跳转
+### App open other App
 
 ## go start
 

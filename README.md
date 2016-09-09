@@ -1,16 +1,18 @@
 # cordova-plugin-jumper
-### ionic APP之间的跳转
+
 ### App open other App
 
-## go start
+## Setup
 
 ###cordova plugin add https://github.com/initMrD/cordova-plugin-jumper.git
-####例子：
+
+##for example：
+
 #####var appInfo =
 #####{
 #####  urlSchema: '', //App Schema or App package name
-#####  suffixText: '', //传入参数
-#####  appType: '', //App类型 appstore/inhouse/
-#####  downloadUr: '' //App下载地址
+#####  suffixText: '', //param(option)
+#####  appType: '', //App type(iOS only) appstore/inhouse/ 
+#####  downloadUrl: '' //App download Url
 #####}
 #####cordova.plugins.Jumper.AppGo(appInfo);

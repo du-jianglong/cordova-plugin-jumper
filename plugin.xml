@@ -16,6 +16,10 @@
                 <param name="android-package" value="org.apache.cordova.jumper.Jumper"/>
             </feature>
         </config-file>
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+        </config-file>
         <source-file src="src/android/Jumper.java" target-dir="src/org/apache/cordova/jumper"/>
     </platform>
 

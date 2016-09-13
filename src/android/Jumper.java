@@ -82,6 +82,7 @@ public class Jumper extends CordovaPlugin {
         final ProgressDialog pd;    //进度条对话框
         pd = new ProgressDialog(this.cordova.getActivity(), AlertDialog.THEME_HOLO_LIGHT);
         pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        pd.setProgressNumberFormat("%1d 字节/%2d 字节");
         pd.setMessage("正在下载");
         pd.show();
         new Thread() {
@@ -138,7 +139,18 @@ public class Jumper extends CordovaPlugin {
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setConnectTimeout(5000);
                 //获取到文件的大小
-                pd.setMax(conn.getContentLength());
+                int unitKB = 1;
+                int unitMB = 1;
+                if(conn.getContentLength()>1024){
+                    unitKB = 1024;
+                    pd.setProgressNumberFormat("%1d KB/%2d KB");
+                }
+                if(conn.getContentLength()>(1024*1024)){
+                    unitKB = 1024;
+                    unitMB = 1024;
+                    pd.setProgressNumberFormat("%1d MB/%2d MB");
+                }
+                pd.setMax(conn.getContentLength()/unitKB/unitMB);
                 InputStream is = conn.getInputStream();
                 Log.d("JumperPlugins", "下载目标路径" + Environment.getExternalStorageDirectory());
                 File file = null;
@@ -158,7 +170,7 @@ public class Jumper extends CordovaPlugin {
                     fos.write(buffer, 0, len);
                     total += len;
                     //获取当前下载量
-                    pd.setProgress(total);
+                    pd.setProgress(total/unitKB/unitMB);
                 }
                 fos.close();
                 bis.close();

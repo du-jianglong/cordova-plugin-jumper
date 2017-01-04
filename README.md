@@ -16,6 +16,6 @@ var appInfo =
         appType: '', //App type(iOS only) appstore/inhouse/ 
         downloadUrl: '' //App download Url
     }
-    cordova.plugins.Jumper.AppGo(appInfo);
+cordova.plugins.Jumper.AppGo(appInfo);
     </code>
 </pre>

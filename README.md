@@ -7,7 +7,8 @@
 ###cordova plugin add https://github.com/initMrD/cordova-plugin-jumper.git
 
 ##for example：
-
+<pre>
+    <code>
 #####var appInfo =
 #####{
 #####  urlSchema: '', //App Schema or App package name
@@ -16,3 +17,5 @@
 #####  downloadUrl: '' //App download Url
 #####}
 #####cordova.plugins.Jumper.AppGo(appInfo);
+    </code>
+</pre>

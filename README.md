@@ -9,13 +9,13 @@
 ##for example：
 <pre>
     <code>
-#####var appInfo =
-#####{
-#####  urlSchema: '', //App Schema or App package name
-#####  suffixText: '', //param(option)
-#####  appType: '', //App type(iOS only) appstore/inhouse/ 
-#####  downloadUrl: '' //App download Url
-#####}
-#####cordova.plugins.Jumper.AppGo(appInfo);
+var appInfo =
+    {
+        urlSchema: '', //App Schema or App package name
+        suffixText: '', //param(option)
+        appType: '', //App type(iOS only) appstore/inhouse/ 
+        downloadUrl: '' //App download Url
+    }
+    cordova.plugins.Jumper.AppGo(appInfo);
     </code>
 </pre>

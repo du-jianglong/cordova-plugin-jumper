@@ -7,6 +7,7 @@
 ###cordova plugin add https://github.com/initMrD/cordova-plugin-jumper.git
 
 ##for example：
+###for app:
 <pre>
     <code>
 var appInfo =
@@ -19,3 +20,11 @@ var appInfo =
 cordova.plugins.Jumper.AppGo(appInfo);
     </code>
 </pre>
+
+###for webapp:
+<pre>
+    <code>
+cordova.plugins.Jumper.AppLiteGo("your webapp url");
+    </code>
+</pre>
+

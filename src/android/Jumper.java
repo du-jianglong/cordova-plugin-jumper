@@ -37,8 +37,6 @@ public class Jumper extends CordovaPlugin {
             JSONObject mObject = args.getJSONObject(0);
             String appPackageName = mObject.getString("urlSchema");
             String downLoadUrl = mObject.getString("downloadUrl");
-            //获取传值
-            String suffixText = mObject.getString("suffixText");
             //检测手机中是否存在apk
             PackageInfo packageInfo = null;
             try {
@@ -60,12 +58,15 @@ public class Jumper extends CordovaPlugin {
                     String activtyName = mResolveInfo.activityInfo.name;
                     ComponentName mComponentName = new ComponentName(packageName, activtyName);
                     mIntent.setComponent(mComponentName);
-                    //传值字段
-                    mIntent.putExtra("reserved",suffixText);
                     mActivity.startActivity(mIntent);
                 }
 
             }
+            return true;
+        }
+        if(action.equals("appLiteGo")){
+            Intent mIntent = new Intent(mActivity,WebViewActivity.class);
+            mActivity.startActivity(mIntent);
             return true;
         }
         return false;

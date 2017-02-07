@@ -3,7 +3,9 @@
  */
 var exec = require('cordova/exec');
 
-exports.AppGo = function (appName,success,error) {
+function Jumper() {}
+
+Jumper.prototype.AppGo = function (appName,success,error) {
     //APP跳转,需要提供
     /*
         {
@@ -15,3 +17,9 @@ exports.AppGo = function (appName,success,error) {
     */
     exec(success,error,"Jumper","appGo", [appName]);
 }
+
+Jumper.prototype.AppLiteGo = function (url,success,error) {
+    exec(success,error,"Jumper","appLiteGo", [url]);
+}
+
+module.exports = new Jumper();

@@ -71,6 +71,7 @@ public class Jumper extends CordovaPlugin {
         }
         if(action.equals("appLiteGo")){
             Intent mIntent = new Intent(mActivity,WebViewActivity.class);
+            mIntent.putExtra("url",args.getString(0));
             mActivity.startActivity(mIntent);
             return true;
         }

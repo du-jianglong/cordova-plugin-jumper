@@ -220,10 +220,9 @@
 
 -(void)appLiteGo:(CDVInvokedUrlCommand *)command
 {
-    NSDictionary * argums = command.arguments[0];
-    
-    NSLog(@"====>>>>>>>>>>>>%@",argums);
-    NSString *url = [argums objectForKey:@"url"];
+
+    NSString *url = command.arguments[0];
+    NSLog(@"====>>>>>>>>>>>>%@",url);
 
     [self creactWebViewWithUrl:url];
 }

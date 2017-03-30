@@ -194,21 +194,21 @@
     
     if(buttonIndex == 1){
         NSString *downloadUrlString = [_appInfo objectForKey:@"downloadUrl"];
-        NSString *appType = [_appInfo objectForKey:@"appType"];
+        // NSString *appType = [_appInfo objectForKey:@"appType"];
         NSURL *downloadUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@",downloadUrlString]];
         //        应用未安装情况
-        if ([appType isEqualToString:@"inhouse"]) {
-            //            通过跳转url下载app   downloadUrl
-            [[UIApplication sharedApplication] openURL:downloadUrl];
+        // if ([appType isEqualToString:@"inhouse"]) {
+        //     //            通过跳转url下载app   downloadUrl
+        //     [[UIApplication sharedApplication] openURL:downloadUrl];
             
-        }
-        if ([appType isEqualToString:@"appstore"]) {
+        // }
+        // if ([appType isEqualToString:@"appstore"]) {
             //                        通过跳转url下载app
             //            比如：http://itunes.apple.com/gb/app/yi-dong-cai-bian/id391945719?mt=8
             //            然后将 http:// 替换为 itms:// 或者 itms-apps://：
             
             [[UIApplication sharedApplication] openURL:downloadUrl];
-        }
+        // }
         
     }
     if(buttonIndex == 0){

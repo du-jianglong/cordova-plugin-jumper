@@ -27,15 +27,22 @@ import java.util.List;
 
 
 public class Jumper extends CordovaPlugin {
-    Activity mActivity = null;
+    //下载是否成功
+    private boolean isDownload = false;
+    //下载缓存
+    private File cacheFile = null;
+    //App名称
+    private String appPackageName = "";
+    private static final String TAG = "JumperPlugins";
+    private Activity mActivity = null;
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         mActivity = cordova.getActivity();
         if (action.equals("appGo")) {
-            Log.d("JumperPlugins", "==============================" + args);
+            Log.d(TAG, "==============================" + args);
             //获取传入参数
             JSONObject mObject = args.getJSONObject(0);
-            String appPackageName = mObject.getString("urlSchema");
+            appPackageName = mObject.getString("urlSchema");
             String downLoadUrl = mObject.getString("downloadUrl");
             //检测手机中是否存在apk
             PackageInfo packageInfo = null;
@@ -51,6 +58,8 @@ public class Jumper extends CordovaPlugin {
                 Intent mIntent = new Intent(Intent.ACTION_MAIN);
                 mIntent.addCategory(Intent.CATEGORY_LAUNCHER);
                 mIntent.setPackage(packageInfo.packageName);
+                //在新栈中打开应用
+                mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 List<ResolveInfo> resolveInfoList = mActivity.getPackageManager().queryIntentActivities(mIntent, 0);
                 ResolveInfo mResolveInfo = resolveInfoList.iterator().next();
                 if (mResolveInfo != null) {
@@ -80,7 +89,32 @@ public class Jumper extends CordovaPlugin {
         intent.setAction(Intent.ACTION_VIEW);
         //执行的数据类型
         intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+        cacheFile = file;
+        isDownload = true;
         this.cordova.getActivity().startActivity(intent);
+    }
+
+    @Override
+    public void onResume(boolean multitasking) {
+        super.onResume(multitasking);
+        Log.d(TAG,"校验安装状态是否成功:"+isDownload);
+        if(isDownload){
+            PackageInfo packageInfo = null;
+            try {
+                packageInfo = mActivity.getPackageManager().getPackageInfo(appPackageName, 0);
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+            if(packageInfo ==null){
+                isDownload = false;
+                Intent intent = new Intent();
+                //执行动作
+                intent.setAction(Intent.ACTION_VIEW);
+                //执行的数据类型
+                intent.setDataAndType(Uri.fromFile(cacheFile), "application/vnd.android.package-archive");
+                this.cordova.getActivity().startActivity(intent);
+            }
+        }
     }
 
     //下载APK
@@ -97,9 +131,10 @@ public class Jumper extends CordovaPlugin {
                 try {
                     DownLoadManager mManager = new DownLoadManager();
                     File file = mManager.getFileFromServer(url, pd);
-                    Log.d("JumperPlugins", url);
+                    Log.d(TAG, url);
                     //用户体验
                     sleep(1500);
+                    pd.dismiss();
                     installApk(file);
                 } catch (Exception e) {
                     Looper.prepare();
@@ -116,12 +151,12 @@ public class Jumper extends CordovaPlugin {
     protected void showUpdataDialog(final String url, String message) {
         AlertDialog.Builder builer = new AlertDialog.Builder(this.cordova.getActivity(), AlertDialog.THEME_HOLO_LIGHT);
         builer.setTitle("下载安装");
-        Log.d("JumperPlugins", "显示消息" + message);
+        Log.d(TAG, "显示消息" + message);
         builer.setMessage(message);
         //当点确定按钮时从服务器上下载 新的apk 然后安装װ
         builer.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                Log.i("JumperPlugins", "下载apk,更新");
+                Log.i(TAG, "下载apk,更新");
                 downLoadApk(url);
             }
         });
@@ -137,10 +172,10 @@ public class Jumper extends CordovaPlugin {
     //下载管理器
     class DownLoadManager {
         File getFileFromServer(String path, ProgressDialog pd) throws Exception {
-            Log.d("JumperPlugins", "检查sd卡" + Environment.getExternalStorageState());
+            Log.d(TAG, "检查sd卡" + Environment.getExternalStorageState());
             //如果相等的话表示当前的sdcard挂载在手机上并且是可用的
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                Log.d("JumperPlugins", "找到sd卡");
+                Log.d(TAG, "找到sd卡");
                 URL url = new URL(path);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setConnectTimeout(5000);
@@ -158,7 +193,7 @@ public class Jumper extends CordovaPlugin {
                 }
                 pd.setMax(conn.getContentLength()/unitKB/unitMB);
                 InputStream is = conn.getInputStream();
-                Log.d("JumperPlugins", "下载目标路径" + Environment.getExternalStorageDirectory());
+                Log.d(TAG, "下载目标路径" + Environment.getExternalStorageDirectory());
                 File file = null;
                 FileOutputStream fos = null;
                 try{
@@ -190,6 +225,6 @@ public class Jumper extends CordovaPlugin {
     }
 
     public Jumper() {
-        Log.d("JumperPlugins", "===========init============");
+        Log.d(TAG, "===========init============");
     }
 }

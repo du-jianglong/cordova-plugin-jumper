@@ -49,6 +49,7 @@ public class WebViewActivity extends Activity {
         LinearLayout mLinearLayout = new LinearLayout(getApplicationContext());
         undo = new Button(getApplicationContext());
         undo.setText("<");
+        undo.setTextColor(Color.WHITE);
         undo.setTextSize(24);
         undo.setBackgroundColor(Color.TRANSPARENT);
         undo.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +60,7 @@ public class WebViewActivity extends Activity {
         });
         exit = new Button(getApplicationContext());
         exit.setText("X");
+        exit.setTextColor(Color.WHITE);
         exit.setTextSize(20);
         exit.setBackgroundColor(Color.TRANSPARENT);
         exit.setVisibility(View.INVISIBLE);

@@ -21,6 +21,9 @@
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
         </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+        	<activity android:name="org.apache.cordova.jumper.WebViewActivity"></activity>
+        </config-file>
         <source-file src="src/android/Jumper.java" target-dir="src/org/apache/cordova/jumper"/>
         <source-file src="src/android/WebViewActivity.java" target-dir="src/org/apache/cordova/jumper"/>
     </platform>

@@ -1,0 +1,27 @@
+{
+  "name": "cordova-plugin-jumper",
+  "version": "1.2.2",
+  "description": "Jump other App",
+  "cordova": {
+    "id": "cordova-plugin-jumper",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://initMrD@github.com/initMrD/cordova-plugin-jumper.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "author": "、initmrd",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/initMrD/cordova-plugin-jumper/issues"
+  },
+  "homepage": "https://github.com/initMrD/cordova-plugin-jumper#readme"
+}

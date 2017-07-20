@@ -49,7 +49,7 @@ public class Jumper extends CordovaPlugin {
             try {
                 packageInfo = mActivity.getPackageManager().getPackageInfo(appPackageName, 0);
             } catch (PackageManager.NameNotFoundException e) {
-                Toast.makeText(mActivity, "找不到该应用", Toast.LENGTH_LONG).show();
+//                Toast.makeText(mActivity, "找不到该应用", Toast.LENGTH_LONG).show();
             }
             if (packageInfo == null) {
                 showUpdataDialog(downLoadUrl, "是否下载安装?");

@@ -23,7 +23,9 @@ import org.json.JSONObject;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class Jumper extends CordovaPlugin {
@@ -49,7 +51,7 @@ public class Jumper extends CordovaPlugin {
             try {
                 packageInfo = mActivity.getPackageManager().getPackageInfo(appPackageName, 0);
             } catch (PackageManager.NameNotFoundException e) {
-//                Toast.makeText(mActivity, "找不到该应用", Toast.LENGTH_LONG).show();
+                Toast.makeText(mActivity, "找不到该应用", Toast.LENGTH_LONG).show();
             }
             if (packageInfo == null) {
                 showUpdataDialog(downLoadUrl, "是否下载安装?");
@@ -63,11 +65,21 @@ public class Jumper extends CordovaPlugin {
                 List<ResolveInfo> resolveInfoList = mActivity.getPackageManager().queryIntentActivities(mIntent, 0);
                 ResolveInfo mResolveInfo = resolveInfoList.iterator().next();
                 if (mResolveInfo != null) {
+                    //获取跳转目标应用的包名和activity名
                     String packageName = mResolveInfo.activityInfo.packageName;
                     String activtyName = mResolveInfo.activityInfo.name;
+                    //将包名和activity名打包，准备回调
+                    Map<String,String> callbackInfo = new HashMap<String, String>();
+                    callbackInfo.put("packageName",packageName);
+                    callbackInfo.put("activtyName",activtyName);
+                    JSONObject callbackJson = new JSONObject(callbackInfo);
+                    //准备跳转应用
                     ComponentName mComponentName = new ComponentName(packageName, activtyName);
                     mIntent.setComponent(mComponentName);
+                    //跳转应用
                     mActivity.startActivity(mIntent);
+                    //回调
+                    callbackContext.success(callbackJson);
                 }
 
             }

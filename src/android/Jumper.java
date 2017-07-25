@@ -70,8 +70,7 @@ public class Jumper extends CordovaPlugin {
                     String activtyName = mResolveInfo.activityInfo.name;
                     //将包名和activity名打包，准备回调
                     Map<String,String> callbackInfo = new HashMap<String, String>();
-                    callbackInfo.put("packageName",packageName);
-                    callbackInfo.put("activtyName",activtyName);
+                    callbackInfo.put("urlSchema",packageName);
                     JSONObject callbackJson = new JSONObject(callbackInfo);
                     //准备跳转应用
                     ComponentName mComponentName = new ComponentName(packageName, activtyName);

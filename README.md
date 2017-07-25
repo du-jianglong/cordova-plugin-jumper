@@ -40,6 +40,13 @@ cordova.plugins.Jumper.AppGo(appInfo,function (data) {
     console.info(JSON.stringify(data));
 });
 ```
+#### 打开webapp:
+```
+declare let cordova;
+
+cordova.plugins.Jumper.AppLiteGo("webapp的url");
+```
+
 
 ---
 
@@ -82,5 +89,11 @@ var appInfo =
 cordova.plugins.Jumper.AppGo(appInfo,function (data) {
     console.info(JSON.stringify(data));
 });
+```
+#### open webapp:
+```
+declare let cordova;
+
+cordova.plugins.Jumper.AppLiteGo("your webapp url");
 ```
 

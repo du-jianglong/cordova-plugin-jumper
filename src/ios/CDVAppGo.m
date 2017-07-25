@@ -16,14 +16,14 @@
     CDVPluginResult* pluginResult = nil;
     NSString *urlSchema = [argums objectForKey:@"urlSchema"];
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@://",urlSchema]];
-    
-    
-    
+    NSDictionary *callbackInfo = [NSDictionary dictionaryWithObjectsAndKeys:urlSchema,@"urlSchema", nil];
+
+
     if ([[UIApplication sharedApplication] openURL:url]){
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:true];
-        
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:callbackInfo];
+
     }else{
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:false];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         
     }
     [self.commandDelegate sendPluginResult: pluginResult callbackId:command.callbackId];

@@ -16,7 +16,9 @@ var appInfo =
         suffixText: '', //传入参数(option)
         downloadUrl: '' //APP下载地址（apk或者plist），当手机内找不到该应用会提示用户下载
     }
-cordova.plugins.Jumper.AppGo(appInfo,success);
+cordova.plugins.Jumper.AppGo(appInfo,function (data) {
+    console.info(JSON.stringify(data));
+});
 ```
 
 #### 打开webapp:
@@ -57,7 +59,9 @@ var appInfo =
         suffixText: '', //param(option)
         downloadUrl: '' //App download Url(plist or apk),if can not open APP,will be download it
     };
-cordova.plugins.Jumper.AppGo(appInfo,success);
+cordova.plugins.Jumper.AppGo(appInfo,function (data) {
+    console.info(JSON.stringify(data));
+});
 ```
 
 #### open webapp:
